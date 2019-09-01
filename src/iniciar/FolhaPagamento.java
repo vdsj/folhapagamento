@@ -13,15 +13,15 @@ import util.Util;
  * @author valdi
  */
 public class FolhaPagamento {
-  
-    
+
+
     public static void main(String[] args) {
-        
+
         Util u = new Util();
         Funcionario f = new Funcionario();
         Remuneracao r = new Remuneracao();
         LinhaTempo hist = new LinhaTempo(null, null, null, null);
-        
+
         Boolean stop = false;
 
         while (stop == false) {
@@ -40,26 +40,26 @@ public class FolhaPagamento {
             System.out.println("---------------------------------------------------------");
 
             switch(u.msgi(">>",2, 2, 0)){
-                case "1": 
+                case "1":
                     u.confMsg(2, 2, 1);
 
                     u.msgo("Adicionar funcionario");
                     u.msgo("Digite o nome do funcionario");
-                    String nome = u.msgi(">>",2,2);   
-                    
+                    String nome = u.msgi(">>",2,2);
+
                     u.msgo("Digite o enderço do funcionario");
                     String endereco = u.msgi(">>",2,2);
-                    
-                    u.msgo("Referentes a remuneração informe;"); 
+
+                    u.msgo("Referentes a remuneração informe;");
                     u.msgo("O tipo de remuneração do funcionario",4,2,1);
-                    String tipo = u.msgi(">>",4,2); 
+                    String tipo = u.msgi(">>",4,2);
 
                     u.msgo("Quantia",4,2,1);
-                    String quantia = u.msgi(">>",4,2); 
+                    String quantia = u.msgi(">>",4,2);
 
                     u.msgo("e a Data de pagamento",4,2,1);
-                    String data = u.msgi(">>",4,2); 
-                    
+                    String data = u.msgi(">>",4,2);
+
                     r = new Remuneracao(tipo, Double.parseDouble(quantia), data);
                     r.add(r);
                     u.msgo(String.valueOf(r.getId()));
@@ -74,13 +74,15 @@ public class FolhaPagamento {
                     u.setHeaders("Id", "Nome", "Endereco", "Quantia", "Data");
                     u.addRow(String.valueOf(f.getId()), nome, endereco, quantia, data );
                     u.showTable();
-                    
+
                 break;
-                    
-                case "2": 
+
+                case "2":
                     u.msgo("remover empregado");
                     u.msgo("Qual Funcionario deseja remover?");
-                    
+
+                    u.showTable();
+
                     if (f.all().size() > 0) {
                         u.setShowVerticalLines(true);
                         u.setHeaders("Id", "Nome", "Endereco", "Quantia", "Data");
@@ -95,9 +97,24 @@ public class FolhaPagamento {
                     } else {
                         u.msgo("Nenhum empregado encontrado.");
                     }
+
+                case "3":
+                    u.msgo("Lançar um cartão de ponto.");
+                case "4":
+                    u.msgo("Lançar um resultado de venda.");
+                case "5":
+                    u.msgo("Lançar uma taxa de serviço.");
+                case "6":
+                    u.msgo("Alterar detalhes de um empregado.");
+                case "7":
+                    u.msgo("Rodar a folha de pagamento para hoje.");
+                case "8":
+                    u.msgo("Undo/redo.");
+                case "9":
+                    u.msgo("Agenda de pagamento.");
             }
-            
-            u.confMsg(1, 0, 1);            
+
+            u.confMsg(1, 0, 1);
             u.msgo("Deseja fazer alguma outra operação? (Sim)");
             if (!u.msgi(">>").toLowerCase().equals("sim")) {
                 stop = true;
